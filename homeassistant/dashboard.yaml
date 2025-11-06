@@ -1,0 +1,142 @@
+# AAU Smart Greenhouse Dashboard for Home Assistant
+# Add this to your Lovelace dashboard configuration
+
+title: Smart Greenhouse
+views:
+  - title: Overview
+    icon: mdi:sprout
+    cards:
+      # Control Panel
+      - type: entities
+        title: 🎮 Control Panel
+        show_header_toggle: false
+        entities:
+          - entity: switch.greenhouse_automation
+            name: Automatic Mode
+            icon: mdi:robot
+          - entity: switch.greenhouse_light
+            name: Light
+            icon: mdi:lightbulb
+          - entity: switch.greenhouse_ventilation
+            name: Ventilation
+            icon: mdi:fan
+          - entity: switch.greenhouse_irrigation
+            name: Irrigation
+            icon: mdi:water-pump
+
+      # Climate Sensors
+      - type: horizontal-stack
+        cards:
+          - type: gauge
+            entity: sensor.greenhouse_temperature
+            name: Temperature
+            min: 0
+            max: 50
+            severity:
+              green: 20
+              yellow: 28
+              red: 35
+
+          - type: gauge
+            entity: sensor.greenhouse_soil_temperature
+            name: Soil Temp
+            min: 0
+            max: 40
+            severity:
+              green: 15
+              yellow: 30
+              red: 35
+
+      - type: horizontal-stack
+        cards:
+          - type: gauge
+            entity: sensor.greenhouse_soil_moisture
+            name: Soil Moisture
+            min: 0
+            max: 100
+            severity:
+              red: 0
+              yellow: 30
+              green: 50
+
+          - type: gauge
+            entity: sensor.greenhouse_light_intensity
+            name: Light
+            min: 0
+            max: 100
+            severity:
+              red: 0
+              yellow: 40
+              green: 60
+
+      # Environmental Sensors
+      - type: entities
+        title: 🌍 Environmental Sensors
+        entities:
+          - entity: sensor.greenhouse_pressure
+            name: Atmospheric Pressure
+          - entity: sensor.greenhouse_altitude
+            name: Altitude
+          - entity: sensor.greenhouse_uv_index
+            name: UV Index
+          - entity: sensor.greenhouse_rain
+            name: Rain Detection
+
+      # History Graphs
+      - type: history-graph
+        title: Temperature History
+        hours_to_show: 24
+        entities:
+          - entity: sensor.greenhouse_temperature
+            name: Air Temp
+          - entity: sensor.greenhouse_soil_temperature
+            name: Soil Temp
+
+      - type: history-graph
+        title: Soil Moisture History
+        hours_to_show: 24
+        entities:
+          - entity: sensor.greenhouse_soil_moisture
+
+      - type: history-graph
+        title: Light & UV History
+        hours_to_show: 24
+        entities:
+          - entity: sensor.greenhouse_light_intensity
+            name: Light
+          - entity: sensor.greenhouse_uv_index
+            name: UV
+
+  - title: Automations
+    icon: mdi:robot
+    cards:
+      - type: markdown
+        content: |
+          ## 🤖 Automatic Mode Features
+          
+          When **Automatic Mode** is enabled, the greenhouse will:
+          
+          ### Temperature Control
+          - Turn on ventilation when temp > 28°C
+          - Turn off ventilation when temp < 25°C
+          - Turn on heating lamp when temp < 23°C
+          
+          ### Irrigation Control
+          - Start irrigation when soil moisture < 30%
+          - Stop irrigation when soil moisture > 70%
+          
+          ### Lighting Control
+          - Turn on supplemental light when natural light < 20%
+          - Turn off light when natural light > 60%
+          
+          ### Alerts
+          - High UV warning (> 8)
+          - Low temperature alert (< 15°C)
+
+      - type: entities
+        title: Automation Status
+        entities:
+          - entity: switch.greenhouse_automation
+          - entity: switch.greenhouse_light
+          - entity: switch.greenhouse_ventilation
+          - entity: switch.greenhouse_irrigation
