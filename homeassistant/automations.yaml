@@ -1,0 +1,128 @@
+# AAU Smart Greenhouse Automations for Home Assistant
+# Add these to your automations.yaml or create them in the UI
+
+# Automation 1: Turn on irrigation when soil moisture is low
+- alias: "Greenhouse: Auto Irrigation"
+  trigger:
+    - platform: numeric_state
+      entity_id: sensor.greenhouse_soil_moisture
+      below: 30
+  condition:
+    - condition: state
+      entity_id: switch.greenhouse_automation
+      state: "on"
+  action:
+    - service: switch.turn_on
+      target:
+        entity_id: switch.greenhouse_irrigation
+    - service: notify.notify
+      data:
+        message: "Greenhouse irrigation activated - soil moisture low"
+
+# Automation 2: Turn off irrigation when soil moisture is sufficient
+- alias: "Greenhouse: Stop Irrigation"
+  trigger:
+    - platform: numeric_state
+      entity_id: sensor.greenhouse_soil_moisture
+      above: 70
+  condition:
+    - condition: state
+      entity_id: switch.greenhouse_automation
+      state: "on"
+  action:
+    - service: switch.turn_off
+      target:
+        entity_id: switch.greenhouse_irrigation
+    - service: notify.notify
+      data:
+        message: "Greenhouse irrigation stopped - soil moisture sufficient"
+
+# Automation 3: Turn on ventilation when temperature is high
+- alias: "Greenhouse: High Temperature Ventilation"
+  trigger:
+    - platform: numeric_state
+      entity_id: sensor.greenhouse_temperature
+      above: 28
+  condition:
+    - condition: state
+      entity_id: switch.greenhouse_automation
+      state: "on"
+  action:
+    - service: switch.turn_on
+      target:
+        entity_id: switch.greenhouse_ventilation
+    - service: notify.notify
+      data:
+        message: "Greenhouse ventilation activated - temperature high"
+
+# Automation 4: Turn off ventilation when temperature is normal
+- alias: "Greenhouse: Normal Temperature"
+  trigger:
+    - platform: numeric_state
+      entity_id: sensor.greenhouse_temperature
+      below: 25
+  condition:
+    - condition: state
+      entity_id: switch.greenhouse_automation
+      state: "on"
+  action:
+    - service: switch.turn_off
+      target:
+        entity_id: switch.greenhouse_ventilation
+
+# Automation 5: Turn on light when it's dark
+- alias: "Greenhouse: Low Light Supplementation"
+  trigger:
+    - platform: numeric_state
+      entity_id: sensor.greenhouse_light_intensity
+      below: 20
+  condition:
+    - condition: time
+      after: "06:00:00"
+      before: "22:00:00"
+    - condition: state
+      entity_id: switch.greenhouse_automation
+      state: "on"
+  action:
+    - service: switch.turn_on
+      target:
+        entity_id: switch.greenhouse_light
+
+# Automation 6: Turn off light when there's sufficient natural light
+- alias: "Greenhouse: Sufficient Natural Light"
+  trigger:
+    - platform: numeric_state
+      entity_id: sensor.greenhouse_light_intensity
+      above: 60
+  condition:
+    - condition: state
+      entity_id: switch.greenhouse_automation
+      state: "on"
+  action:
+    - service: switch.turn_off
+      target:
+        entity_id: switch.greenhouse_light
+
+# Automation 7: Alert on extreme UV levels
+- alias: "Greenhouse: High UV Alert"
+  trigger:
+    - platform: numeric_state
+      entity_id: sensor.greenhouse_uv_index
+      above: 8
+  action:
+    - service: notify.notify
+      data:
+        message: "Warning: Very high UV levels in greenhouse!"
+        title: "Greenhouse Alert"
+
+# Automation 8: Alert on low temperature
+- alias: "Greenhouse: Low Temperature Alert"
+  trigger:
+    - platform: numeric_state
+      entity_id: sensor.greenhouse_temperature
+      below: 15
+  action:
+    - service: notify.notify
+      data:
+        message: "Warning: Greenhouse temperature below 15°C!"
+        title: "Greenhouse Alert"

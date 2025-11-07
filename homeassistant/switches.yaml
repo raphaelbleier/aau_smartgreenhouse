@@ -1,0 +1,42 @@
+# AAU Smart Greenhouse Switches for Home Assistant
+# Add these to your configuration.yaml or switches.yaml
+
+- platform: mqtt
+  name: "Greenhouse Light"
+  state_topic: "aau_gh/manager/lightbulb"
+  command_topic: "aau_gh/manager/lightbulb"
+  payload_on: "on"
+  payload_off: "off"
+  state_on: "on"
+  state_off: "off"
+  icon: mdi:lightbulb
+
+- platform: mqtt
+  name: "Greenhouse Ventilation"
+  state_topic: "aau_gh/manager/ventilation"
+  command_topic: "aau_gh/manager/ventilation"
+  payload_on: "on"
+  payload_off: "off"
+  state_on: "on"
+  state_off: "off"
+  icon: mdi:fan
+
+- platform: mqtt
+  name: "Greenhouse Irrigation"
+  state_topic: "aau_gh/manager/irrigation"
+  command_topic: "aau_gh/manager/irrigation"
+  payload_on: "on"
+  payload_off: "off"
+  state_on: "on"
+  state_off: "off"
+  icon: mdi:water-pump
+
+- platform: mqtt
+  name: "Greenhouse Automation"
+  state_topic: "aau_gh/manager/automation"
+  command_topic: "aau_gh/manager/automation"
+  payload_on: "on"
+  payload_off: "off"
+  state_on: "on"
+  state_off: "off"
+  icon: mdi:robot

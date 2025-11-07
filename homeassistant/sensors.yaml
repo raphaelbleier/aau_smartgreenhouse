@@ -1,0 +1,55 @@
+# AAU Smart Greenhouse Sensors for Home Assistant
+# Add these to your configuration.yaml or sensors.yaml
+
+- platform: mqtt
+  name: "Greenhouse Temperature"
+  state_topic: "aau_gh/climate/getTemperature"
+  unit_of_measurement: "°C"
+  device_class: temperature
+  icon: mdi:thermometer
+
+- platform: mqtt
+  name: "Greenhouse Pressure"
+  state_topic: "aau_gh/climate/getPressure"
+  unit_of_measurement: "hPa"
+  device_class: pressure
+  icon: mdi:gauge
+
+- platform: mqtt
+  name: "Greenhouse Altitude"
+  state_topic: "aau_gh/climate/getAltitude"
+  unit_of_measurement: "m"
+  icon: mdi:mountain
+
+- platform: mqtt
+  name: "Greenhouse Soil Temperature"
+  state_topic: "aau_gh/climate/getSoilTemp"
+  unit_of_measurement: "°C"
+  device_class: temperature
+  icon: mdi:thermometer-lines
+
+- platform: mqtt
+  name: "Greenhouse Soil Moisture"
+  state_topic: "aau_gh/climate/getSoilMoisture"
+  unit_of_measurement: "%"
+  device_class: humidity
+  icon: mdi:water-percent
+
+- platform: mqtt
+  name: "Greenhouse UV Index"
+  state_topic: "aau_gh/climate/getUV"
+  unit_of_measurement: "UV"
+  icon: mdi:weather-sunny-alert
+
+- platform: mqtt
+  name: "Greenhouse Rain"
+  state_topic: "aau_gh/climate/getRain"
+  unit_of_measurement: "%"
+  icon: mdi:water
+
+- platform: mqtt
+  name: "Greenhouse Light Intensity"
+  state_topic: "aau_gh/climate/getLux"
+  unit_of_measurement: "lx"
+  device_class: illuminance
+  icon: mdi:brightness-6
