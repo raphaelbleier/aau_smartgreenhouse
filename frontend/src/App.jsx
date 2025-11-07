@@ -5,14 +5,15 @@ import './App.css'
 function App() {
   const [data, setData] = useState(null)
   const [status, setStatus] = useState('connecting')
-  const [ws, setWs] = useState(null)
 
   useEffect(() => {
     // Fetch initial data
     fetchData()
     
     // Setup WebSocket connection for real-time updates
-    const websocket = new WebSocket('ws://localhost:3001')
+    const wsProtocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+    const wsUrl = `${wsProtocol}//${window.location.hostname}:3001`;
+    const websocket = new WebSocket(wsUrl)
     
     websocket.onopen = () => {
       console.log('WebSocket connected')
@@ -35,8 +36,6 @@ function App() {
       console.log('WebSocket disconnected')
       setStatus('disconnected')
     }
-    
-    setWs(websocket)
     
     return () => {
       if (websocket) {

@@ -11,7 +11,7 @@
 - platform: mqtt
   name: "Greenhouse Pressure"
   state_topic: "aau_gh/climate/getPressure"
-  unit_of_measurement: "Pa"
+  unit_of_measurement: "hPa"
   device_class: pressure
   icon: mdi:gauge
 
@@ -50,6 +50,6 @@
 - platform: mqtt
   name: "Greenhouse Light Intensity"
   state_topic: "aau_gh/climate/getLux"
-  unit_of_measurement: "%"
+  unit_of_measurement: "lx"
   device_class: illuminance
   icon: mdi:brightness-6

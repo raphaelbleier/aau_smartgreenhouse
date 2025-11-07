@@ -62,23 +62,37 @@ mqttClient.on('message', (topic, message) => {
   // Parse climate data
   if (topic === 'aau_gh/climate/getTemperature') {
     greenhouseData.climate.temperature = parseFloat(value);
+    greenhouseData.climate.lastUpdate = new Date().toISOString();
   } else if (topic === 'aau_gh/climate/getPressure') {
     greenhouseData.climate.pressure = parseFloat(value);
+    greenhouseData.climate.lastUpdate = new Date().toISOString();
   } else if (topic === 'aau_gh/climate/getAltitude') {
     greenhouseData.climate.altitude = parseFloat(value);
+    greenhouseData.climate.lastUpdate = new Date().toISOString();
   } else if (topic === 'aau_gh/climate/getSoilTemp') {
     greenhouseData.climate.soilTemp = parseFloat(value);
+    greenhouseData.climate.lastUpdate = new Date().toISOString();
   } else if (topic === 'aau_gh/climate/getSoilMoisture') {
     greenhouseData.climate.soilMoisture = parseFloat(value);
+    greenhouseData.climate.lastUpdate = new Date().toISOString();
   } else if (topic === 'aau_gh/climate/getUV') {
     greenhouseData.climate.uv = parseFloat(value);
+    greenhouseData.climate.lastUpdate = new Date().toISOString();
   } else if (topic === 'aau_gh/climate/getRain') {
     greenhouseData.climate.rain = parseFloat(value);
+    greenhouseData.climate.lastUpdate = new Date().toISOString();
   } else if (topic === 'aau_gh/climate/getLux') {
     greenhouseData.climate.lux = parseFloat(value);
+    greenhouseData.climate.lastUpdate = new Date().toISOString();
+  } else if (topic === 'aau_gh/manager/lightbulb') {
+    greenhouseData.manager.lightbulb = value;
+  } else if (topic === 'aau_gh/manager/ventilation') {
+    greenhouseData.manager.ventilation = value;
+  } else if (topic === 'aau_gh/manager/irrigation') {
+    greenhouseData.manager.irrigation = value;
+  } else if (topic === 'aau_gh/manager/automation') {
+    greenhouseData.manager.automation = value;
   }
-  
-  greenhouseData.climate.lastUpdate = new Date().toISOString();
   
   // Broadcast to WebSocket clients
   broadcastToClients({ type: 'update', data: greenhouseData });

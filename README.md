@@ -173,8 +173,8 @@ Use the control panel to:
 When enabled, the system automatically:
 - Activates ventilation when temperature > 28°C
 - Turns on heating when temperature < 23°C
-- Starts irrigation when soil moisture < 50%
-- Stops irrigation when soil moisture > 80%
+- Starts irrigation when soil moisture < 30%
+- Stops irrigation when soil moisture > 70%
 
 ## 🏠 Home Assistant Integration
 
